@@ -594,12 +594,8 @@ class ezcWorkflowDefinitionStorageXml implements ezcWorkflowDefinitionStorage
             case 'array': {
                 $variable = [];
 
-                $childLength = $element->childNodes->length;
-
-                for($childNo = 0; $childNo < $childLength; $childNo++) {
-                    $child = $element->childNodes->item($childNo);
-
-                    if ($child instanceof DOMElement) {
+                foreach ($element->childNodes as $child) {
+                    if ($child instanceof DOMElement && $child->tagName == 'element') {
                         $value = self::xmlToVariable( ezcWorkflowUtil::getChildNode( $child ) );
 
                         if ( $child->hasAttribute( 'key' ) )
